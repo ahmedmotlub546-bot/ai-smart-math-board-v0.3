@@ -81,3 +81,36 @@ export function clampDims(type, dims) {
   }
   return out;
 }
+
+/** Scale all dimensions together by `factor`, preserving proportions even when a limit is reached. */
+export function scaleDims(type, dims, factor) {
+  let lo = 0, hi = Infinity;
+  for (const d of SOLIDS[type].dims) {
+    lo = Math.max(lo, d.min / dims[d.key]);
+    hi = Math.min(hi, d.max / dims[d.key]);
+  }
+  const f = Math.min(hi, Math.max(lo, factor));
+  return Object.fromEntries(SOLIDS[type].dims.map(d => [d.key, dims[d.key] * f]));
+}
+
+export function solidProperties(type, dims) {
+  return SOLIDS[type].props(dims);
+}
+
+/** Pull dimension numbers out of a natural-language command such as "cone radius 3 height 5". */
+export function parseSolidCommand(text) {
+  const s = String(text).toLowerCase();
+  const type = /pyramid/.test(s) ? "pyramid" : /cone/.test(s) ? "cone" : /cylinder/.test(s) ? "cylinder" : /sphere|ball/.test(s) ? "sphere" : /cube|cuboid|box/.test(s) ? "cube" : null;
+  if (!type) return null;
+  const num = re => { const m = s.match(re); return m ? Number(m[1]) : null; };
+  const raw = {
+    r: num(/\b(?:radius|r)\s*(?:of|=|is)?\s*(\d+(?:\.\d+)?)/),
+    h: num(/\b(?:height|h)\s*(?:of|=|is)?\s*(\d+(?:\.\d+)?)/),
+    a: num(/\b(?:side|edge|length|a)\s*(?:of|=|is)?\s*(\d+(?:\.\d+)?)/),
+    b: num(/\b(?:base|b)\s*(?:of|=|is)?\s*(\d+(?:\.\d+)?)/)
+  };
+  const dims = defaultDims(type);
+  for (const d of SOLIDS[type].dims) if (raw[d.key] !== null) dims[d.key] = raw[d.key];
+  if (type === "pyramid" && raw.b === null && raw.a !== null) dims.b = raw.a;
+  return { type, dims: clampDims(type, dims) };
+    }
