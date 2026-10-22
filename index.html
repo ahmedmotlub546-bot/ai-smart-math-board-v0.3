@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, interactive-widget=resizes-content" />
+  <meta name="theme-color" content="#0b1020" />
+  <meta name="description" content="Interactive AI Smart Math Board for geometry, graphing, 3D solids, and visual mathematics." />
+  <link rel="icon" href="data:," />
+  <title>AI Smart Math Board</title>
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <button class="icon-btn mobile-only" id="menuToggle" aria-label="Open navigation">☰</button>
+      <div class="brand-logo">∑</div>
+      <div class="brand-text"><strong>AI Smart Math Board</strong><span>Visual mathematics studio</span></div>
+      <div class="topbar-spacer"></div>
+      <span class="live-status"><i></i> Interactive workspace</span>
+      <button class="icon-btn" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">◐</button>
+    </header>
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar">
+        <div class="side-label">WORKSPACE</div>
+        <button class="nav-link active" data-view="board"><b>✳</b> Smartboard</button>
+        <button class="nav-link" data-view="geometry"><b>△</b> 2D Geometry</button>
+        <button class="nav-link" data-view="coordinates"><b>⌖</b> Coordinate Geometry</button>
+        <button class="nav-link" data-view="solid"><b>⬡</b> 3D Laboratory</button>
+        <button class="nav-link" data-view="algebra"><b>ƒ</b> Function Graphs</button>
+        <button class="nav-link" data-view="constructions"><b>⚒</b> Constructions</button>
+        <div class="side-label spaced">PROJECT</div>
+        <button class="nav-link" id="saveBtn"><b>▣</b> Save project</button>
+        <button class="nav-link" id="loadBtn"><b>↻</b> Load project</button>
+        <button class="nav-link" id="exportBtn"><b>⇩</b> Export drawing</button>
+        <button class="nav-link" id="importBtn"><b>＋</b> Import project JSON</button>
+        <input type="file" id="importFile" accept=".json,application/json" hidden />
+        <div class="sidebar-spacer"></div>
+        <div class="side-tip"><span>✦</span><strong>Learn by changing</strong><p>Move a point, change a dimension, and watch the mathematics update.</p></div>
+        <div class="side-foot">Prototype 0.3 · Local-first workspace</div>
+      </aside>
+      <main class="main-area">
+        <section class="page-head">
+          <div><p class="eyebrow" id="eyebrow">INTERACTIVE CLASSROOM</p><h1 id="pageTitle">Make mathematics visible.</h1><p id="pageSubtitle">Draw, manipulate, animate, and understand.</p></div>
+          <div class="head-actions"><button class="secondary-btn" id="undoBtn">↶ Undo</button><button class="secondary-btn" id="redoBtn">↷ Redo</button><button class="secondary-btn" id="fullscreenBtn">⛶ Fullscreen</button></div>
+        </section>
+        <section class="command-box">
+          <div class="command-glyph">✦</div>
+          <div class="command-input-wrap"><label for="commandInput">MATH COMMAND</label><input id="commandInput" placeholder='Try: “draw a triangle”, “plot point (3,4)”, “graph y = 2x + 1”' autocomplete="off" /></div>
+          <button class="primary-btn" id="runCommand">Create <span>↗</span></button>
+        </section>
+        <div class="command-feedback" id="commandFeedback" aria-live="polite">Commands are processed locally. AI chat can be enabled with the optional secure backend.</div>
+        <div class="content-grid">
+          <section class="work-card">
+            <div class="work-card-head"><div><p class="eyebrow">LIVE CANVAS</p><h2 id="workspaceTitle">Smartboard</h2></div><div class="head-actions"><button class="icon-btn" id="clearBtn" title="Clear active canvas">⌫</button></div></div>
+            <div class="view-panel active" id="view-board">
+              <div class="tool-strip">
+                <button class="tool-btn active" data-tool="select" title="Select / move">↖</button>
+                <button class="tool-btn" data-tool="pen" title="Freehand pen">✎</button>
+                <button class="tool-btn" data-tool="eraser" title="Erase">⌫</button>
+                <button class="tool-btn" data-tool="point" title="Add point">•</button>
+                <span class="tool-separator"></span>
+                <button class="mini-btn" id="boardTriangle">＋ Triangle</button><button class="mini-btn" id="boardCircle">＋ Circle</button><button class="mini-btn" id="boardText">＋ Note</button>
+              </div>
+              <svg id="boardSvg" class="math-canvas" viewBox="0 0 900 540" aria-label="Smartboard canvas">
+                <defs><pattern id="boardGridSmall" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" class="grid-line"/></pattern><pattern id="boardGridLarge" width="100" height="100" patternUnits="userSpaceOnUse"><rect width="100" height="100" fill="url(#boardGridSmall)"/><path d="M100 0H0V100" class="grid-major"/></pattern></defs>
+                <rect width="900" height="540" fill="url(#boardGridLarge)"/><g id="boardLayer"></g>
+              </svg>
+              <div class="canvas-meta" id="boardHint">Select a tool</div>
+            </div>
+            <!-- other views abbreviated for length; full structure matches the zip -->
+          </section>
+          <aside class="inspector">
+            <div class="inspector-head"><div><p class="eyebrow">MATH COMPANION</p><h2 id="inspectorTitle">Explore the idea</h2></div><span class="sparkle">✦</span></div>
+            <div class="inspector-body" id="inspectorBody"></div>
+            <div class="inspector-foot"><i></i> Calculations run locally</div>
+          </aside>
+        </div>
+        <section class="lower-cards"><article><span>⌘</span><div><strong>Command-driven learning</strong><p>Use natural-language starter commands to create supported math objects.</p></div></article><article><span>⤢</span><div><strong>Explore, don't just watch</strong><p>Manipulate geometry and see the properties change immediately.</p></div></article></section>
+        <footer class="footer">AI Smart Math Board <span>·</span> Modular learning prototype 0.3</footer>
+      </main>
+    </div>
+    <div class="toast" id="toast" role="status"></div>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
