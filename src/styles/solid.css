@@ -1,0 +1,31 @@
+/* ===== 3D laboratory ===== */
+.solid-panel { padding-bottom: 14px; }
+
+.shape-strip { display: flex; gap: 8px; padding: 10px 13px; overflow-x: auto; scrollbar-width: none; border-bottom: 1px solid var(--line); -webkit-overflow-scrolling: touch; }
+.shape-strip::-webkit-scrollbar { display: none; }
+.shape-chip { flex: 1 0 auto; display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 66px; padding: 8px 10px 7px; border-radius: 12px; border: 1px solid var(--line); background: var(--panel2); color: var(--muted); font-size: 11px; font-weight: 600; transition: background .15s, color .15s, border-color .15s; }
+.shape-chip svg { width: 26px; height: 26px; }
+.shape-chip.active { color: var(--mint); border-color: #a9f3d08c; background: #a9f3d01c; }
+.light-theme .shape-chip.active { color: #0f8a62; border-color: #0f8a6290; background: #0f8a6214; }
+
+.solid-tools { display: flex; flex-wrap: wrap; gap: 8px; padding: 10px 13px; border-bottom: 1px solid var(--line); }
+.dim-row { display: grid; grid-template-columns: 70px 1fr 60px; gap: 8px; align-items: center; padding: 6px 13px; }
+.dim-row label { font-size: 12px; color: var(--muted); }
+.dim-row input[type=range] { width: 100%; accent-color: var(--mint); }
+.dim-row output { font-size: 12px; text-align: right; }
+
+.three-mount { position: relative; height: 420px; background: #0d1424; border-radius: 0 0 12px 12px; overflow: hidden; }
+.three-labels { position: absolute; inset: 0; pointer-events: none; }
+.solid-label { position: absolute; font-size: 11px; font-weight: 700; color: #fff; text-shadow: 0 1px 2px #0008; white-space: nowrap; }
+.solid-label.k-h { color: #a9f3d0; }
+.solid-label.k-r { color: #ffbd8b; }
+.solid-label.k-l { color: #b8a4ff; }
+.solid-label.k-a { color: #8ab7ff; }
+.solid-label.k-d { color: #ff8fb1; }
+.solid-label.k-v { color: #edf3ff; }
+
+.metric-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; padding: 10px 13px; }
+.metric-row div { background: var(--panel2); border: 1px solid var(--line); border-radius: 8px; padding: 8px; text-align: center; }
+.metric-row span { display: block; font-size: 9px; color: var(--muted); }
+.metric-row strong { font-size: 13px; }
+.gl-fallback { padding: 40px; text-align: center; color: var(--muted); }
