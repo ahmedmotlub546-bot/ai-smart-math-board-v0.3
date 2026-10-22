@@ -1,0 +1,8 @@
+{
+  "appId": "com.aismartmath.board",
+  "appName": "AI Smart Math Board",
+  "webDir": "dist",
+  "backgroundColor": "#0b1020",
+  "server": { "androidScheme": "https" },
+  "android": { "allowMixedContent": false }
+}
