@@ -1,0 +1,42 @@
+/* ===== Phones & tablets: comfortable targets, readable text, safe areas, no wasted GPU work ===== */
+:root { --safe-t: env(safe-area-inset-top, 0px); --safe-b: env(safe-area-inset-bottom, 0px); --safe-l: env(safe-area-inset-left, 0px); --safe-r: env(safe-area-inset-right, 0px); }
+html { -webkit-text-size-adjust: 100%; }
+body { padding-left: var(--safe-l); padding-right: var(--safe-r); }
+.topbar { padding-top: var(--safe-t); height: calc(72px + var(--safe-t)); }
+.footer { padding-bottom: calc(14px + var(--safe-b)); }
+.toast { bottom: calc(22px + var(--safe-b)); }
+
+@media (pointer: coarse) {
+  .mini-btn, .secondary-btn, .tool-btn, .icon-btn, .nav-link, .prompt-list button { min-height: 44px; }
+  .tool-btn { min-width: 44px; font-size: 18px; }
+  .mini-btn, .secondary-btn { font-size: 13px; padding: 10px 13px; }
+  .icon-btn { min-width: 44px; height: 44px; }
+  .nav-link { font-size: 14px; }
+  .primary-btn { min-height: 44px; font-size: 14px; }
+  .command-input-wrap input, .coordinate-strip input[type=number], .algebra-strip input { font-size: 16px; }
+  .coordinate-strip input[type=number] { width: 80px; min-height: 40px; }
+  .check-label, .coordinate-strip label, .algebra-strip label, .range-label { font-size: 13px; min-height: 40px; }
+  .check-label input { width: 20px; height: 20px; }
+  .eyebrow { font-size: 11px; }
+  .canvas-meta, .command-feedback, .inspector-foot, .footer, .side-foot { font-size: 11px; }
+  .info-box p, .info-box li, .inspector-body > p, .side-tip p, .lower-cards p { font-size: 13px; }
+  .info-box h4 { font-size: 11px; }
+  .lower-cards strong, .side-tip strong { font-size: 14px; }
+  .command-input-wrap label { font-size: 10px; }
+}
+
+@media (max-width: 570px) {
+  .page-head h1 { font-size: 26px; }
+  .head-actions button { flex: 1; }
+  .three-mount { height: clamp(300px, 46vh, 460px); }
+  .dim-row { grid-template-columns: 66px 1fr 68px; gap: 8px; }
+  .metric-row { padding: 0 10px; }
+  .metric-row .metric-hero strong { font-size: 22px; }
+  .metric-row strong { font-size: 13px; }
+  .metric-row span { font-size: 11px; }
+  .size-tool { margin-left: 10px; margin-right: 10px; }
+  .solid-tools { gap: 6px; }
+  .lower-cards { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
